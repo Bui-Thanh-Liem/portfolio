@@ -1,0 +1,991 @@
+<!doctype html>
+<html class="scroll-smooth" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Bui Thanh Liem | Software Engineer</title>
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&amp;family=Patrick+Hand&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary-container": "#064487",
+              "primary-container": "#2d2d2d",
+              secondary: "#2e5ea2",
+              outline: "#747878",
+              tertiary: "#3b0003",
+              "on-background": "#1b1c1a",
+              "on-primary": "#ffffff",
+              "inverse-surface": "#30312e",
+              "primary-fixed": "#e4e2e1",
+              "inverse-primary": "#c8c6c6",
+              "surface-tint": "#5f5e5e",
+              "on-error-container": "#93000a",
+              "inverse-on-surface": "#f2f0ed",
+              "primary-fixed-dim": "#c8c6c6",
+              "tertiary-container": "#62000a",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#ffb3ae",
+              "on-surface": "#1b1c1a",
+              "on-primary-fixed": "#1b1c1c",
+              primary: "#181919",
+              "outline-variant": "#c4c7c7",
+              "surface-container-low": "#f5f3ef",
+              "surface-bright": "#fbf9f5",
+              "on-secondary": "#ffffff",
+              "on-tertiary-fixed-variant": "#930014",
+              error: "#ba1a1a",
+              "marker-red": "#ff4d4d",
+              "surface-dim": "#dbdad6",
+              background: "#fbf9f5",
+              "surface-container": "#efeeea",
+              "tertiary-fixed": "#ffdad7",
+              "on-error": "#ffffff",
+              "surface-variant": "#e4e2de",
+              surface: "#fbf9f5",
+              "secondary-fixed": "#d6e3ff",
+              "on-secondary-fixed": "#001b3d",
+              "secondary-fixed-dim": "#a9c7ff",
+              "on-tertiary-fixed": "#410004",
+              "secondary-container": "#89b4fe",
+              "on-primary-container": "#959494",
+              "on-primary-fixed-variant": "#474747",
+              "on-surface-variant": "#444748",
+              "paper-warm": "#fdfbf7",
+              "on-secondary-fixed-variant": "#0a4689",
+              "paper-muted": "#e5e0d8",
+              "on-tertiary-container": "#ff5d59",
+              "error-container": "#ffdad6",
+              "ballpoint-blue": "#2d5da1",
+              "surface-container-highest": "#e4e2de",
+              "surface-container-high": "#eae8e4",
+              "surface-container-lowest": "#ffffff",
+              "pencil-black": "#2d2d2d",
+              "post-it-yellow": "#fdfc97",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              gutter: "24px",
+              "max-width": "1100px",
+              unit: "8px",
+              "margin-mobile": "16px",
+              "margin-desktop": "64px",
+            },
+            fontFamily: {
+              "body-md": ["Patrick Hand"],
+              "headline-lg": ["Kalam"],
+              "body-sm": ["Patrick Hand"],
+              "headline-xl": ["Kalam"],
+              "body-lg": ["Patrick Hand"],
+              "label-md": ["Patrick Hand"],
+              "headline-xl-mobile": ["Kalam"],
+              "headline-md": ["Kalam"],
+              "headline-lg-mobile": ["Kalam"],
+            },
+            fontSize: {
+              "body-md": ["18px", { lineHeight: "1.5", fontWeight: "400" }],
+              "headline-lg": ["32px", { lineHeight: "1.2", fontWeight: "700" }],
+              "body-sm": ["14px", { lineHeight: "1.4", fontWeight: "400" }],
+              "headline-xl": [
+                "48px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "body-lg": ["20px", { lineHeight: "1.6", fontWeight: "400" }],
+              "label-md": ["16px", { lineHeight: "1.2", fontWeight: "400" }],
+              "headline-xl-mobile": [
+                "36px",
+                { lineHeight: "1.2", fontWeight: "700" },
+              ],
+              "headline-md": ["24px", { lineHeight: "1.3", fontWeight: "400" }],
+              "headline-lg-mobile": [
+                "28px",
+                { lineHeight: "1.2", fontWeight: "700" },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const sections = document.querySelectorAll("section[id], footer[id]");
+        const navLinks = document.querySelectorAll("ul li a");
+
+        const observerOptions = {
+          root: null,
+          rootMargin: "-20% 0px -60% 0px", // Điểm nhận diện section linh hoạt hơn
+          threshold: 0,
+        };
+
+        const activeClass =
+          "text-ballpoint-blue dark:text-secondary-container underline decoration-wavy";
+        const inactiveClass =
+          "text-pencil-black dark:text-on-primary-container";
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const id = entry.target.getAttribute("id");
+
+              navLinks.forEach((link) => {
+                const href = link.getAttribute("href");
+                if (href === `#${id}`) {
+                  // Thêm style Active
+                  link.className = `${activeClass} hover:-translate-y-0.5 hover:rotate-1 transition-transform`;
+                } else {
+                  // Trả về style Thường
+                  link.className = `${inactiveClass} hover:-translate-y-0.5 hover:rotate-1 transition-transform`;
+                }
+              });
+            }
+          });
+        }, observerOptions);
+
+        sections.forEach((section) => observer.observe(section));
+
+        // Mobile Menu Logic
+        const openMenuBtn = document.getElementById("open-menu-btn");
+        const closeMenuBtn = document.getElementById("close-menu-btn");
+        const mobileMenu = document.getElementById("mobile-menu");
+        const mobileNavLinks = mobileMenu.querySelectorAll("a");
+
+        const toggleMenu = () => {
+          mobileMenu.classList.toggle("hidden");
+          document.body.classList.toggle("overflow-hidden"); // Ngăn scroll khi mở menu
+        };
+
+        openMenuBtn?.addEventListener("click", toggleMenu);
+        closeMenuBtn?.addEventListener("click", toggleMenu);
+
+        // Tự động đóng menu khi bấm vào 1 link chuyển section
+        mobileNavLinks.forEach((link) => {
+          link.addEventListener("click", toggleMenu);
+        });
+      });
+    </script>
+    <style>
+      /* Analog Paper Texture */
+      body {
+        background-color: #fdfbf7;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+      }
+
+      /* Wobbly Borders */
+      .wobbly-border {
+        border: 2px solid #2d2d2d;
+        border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+      }
+
+      .wobbly-border-sm {
+        border: 2px solid #2d2d2d;
+        border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;
+      }
+
+      /* Hard Shadows */
+      .hard-shadow {
+        box-shadow: 4px 4px 0px #2d2d2d;
+        transition: all 0.2s ease;
+      }
+
+      .hard-shadow:hover {
+        box-shadow: 6px 6px 0px #2d2d2d;
+        transform: translate(-2px, -2px) rotate(1deg);
+      }
+
+      .hard-shadow:active {
+        box-shadow: 0px 0px 0px #2d2d2d;
+        transform: translate(4px, 4px);
+      }
+
+      /* Hand-drawn Underline */
+      .scribble-underline {
+        position: relative;
+        display: inline-block;
+        z-index: 1;
+      }
+
+      .scribble-underline::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: -5%;
+        width: 110%;
+        height: 10px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0 5 Q 25 10, 50 5 T 100 5' fill='none' stroke='%23ff4d4d' stroke-width='2' vector-effect='non-scaling-stroke' stroke-linecap='round'/%3E%3C/svg%3E");
+        background-size: 100% 100%;
+        z-index: -1;
+        transform: rotate(-1deg);
+      }
+
+      /* Dotted Line for Timeline */
+      .dotted-timeline {
+        background-image: url("data:image/svg+xml,%3Csvg width='4' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 0 L2 10' stroke='%232d2d2d' stroke-width='2' stroke-dasharray='4,4' fill='none'/%3E%3C/svg%3E");
+        background-repeat: repeat-y;
+        background-position: center;
+      }
+    </style>
+  </head>
+  <body
+    class="text-pencil-black font-body-md min-h-screen overflow-x-hidden selection:bg-post-it-yellow selection:text-pencil-black"
+  >
+    <!-- TopNavBar -->
+    <nav
+      class="w-full sticky top-0 z-50 bg-paper-warm dark:bg-primary-container border-b-2 border-pencil-black dark:border-outline-variant shadow-[4px_4px_0px_#2d2d2d] dark:shadow-none"
+    >
+      <div
+        class="flex justify-between items-center max-w-[1100px] mx-auto px-margin-mobile md:px-margin-desktop py-4"
+      >
+        <a
+          class="font-headline-lg text-headline-lg font-bold text-pencil-black dark:text-primary-fixed -rotate-1 hover:-translate-y-0.5 hover:rotate-1 transition-transform active:translate-y-1 active:shadow-none transition-all"
+          href="#"
+        >
+          Bui Thanh Liem
+        </a>
+        <!-- Desktop Nav -->
+        <ul
+          class="hidden md:flex items-center gap-6 font-headline-md text-headline-md"
+        >
+          <li>
+            <a
+              class="text-pencil-black dark:text-on-primary-container hover:-translate-y-0.5 hover:rotate-1 transition-transform"
+              href="#about"
+              >About</a
+            >
+          </li>
+          <li>
+            <a
+              class="text-pencil-black dark:text-on-primary-container hover:-translate-y-0.5 hover:rotate-1 transition-transform"
+              href="#skills"
+              >Skills</a
+            >
+          </li>
+          <li>
+            <a
+              class="text-pencil-black dark:text-on-primary-container hover:-translate-y-0.5 hover:rotate-1 transition-transform"
+              href="#projects"
+              >Projects</a
+            >
+          </li>
+          <li>
+            <a
+              class="text-pencil-black dark:text-on-primary-container hover:-translate-y-0.5 hover:rotate-1 transition-transform"
+              href="#experience"
+              >Experience</a
+            >
+          </li>
+        </ul>
+        <a
+          class="hidden md:inline-flex items-center justify-center bg-paper-warm wobbly-border px-6 py-2 font-headline-md text-headline-md text-pencil-black hard-shadow"
+          href="#contact"
+        >
+          Contact Me
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="open-menu-btn" class="md:hidden p-2 text-pencil-black">
+          <span
+            class="material-symbols-outlined"
+            style="font-variation-settings: &quot;FILL&quot; 1"
+            >menu</span
+          >
+        </button>
+      </div>
+
+      <!-- Mobile Menu Overlay -->
+      <div
+        id="mobile-menu"
+        class="hidden fixed inset-0 z-50 bg-paper-warm/95 backdrop-blur-sm flex flex-col justify-center items-center gap-8 font-headline-md text-2xl md:hidden"
+      >
+        <!-- Close Button -->
+        <button
+          id="close-menu-btn"
+          class="absolute top-6 right-6 p-2 text-pencil-black"
+        >
+          <span class="material-symbols-outlined text-4xl">close</span>
+        </button>
+
+        <a class="text-pencil-black hover:text-ballpoint-blue" href="#about"
+          >About</a
+        >
+        <a class="text-pencil-black hover:text-ballpoint-blue" href="#skills"
+          >Skills</a
+        >
+        <a class="text-pencil-black hover:text-ballpoint-blue" href="#projects"
+          >Projects</a
+        >
+        <a
+          class="text-pencil-black hover:text-ballpoint-blue"
+          href="#experience"
+          >Experience</a
+        >
+        <a
+          class="bg-paper-warm wobbly-border px-6 py-2 text-pencil-black hard-shadow"
+          href="#contact"
+          >Contact Me</a
+        >
+      </div>
+    </nav>
+
+    <!-- Main Content Canvas -->
+    <main
+      class="max-w-[1100px] mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-24 space-y-32"
+    >
+      <!-- Hero Section -->
+      <section
+        class="relative flex flex-col items-center text-center scroll-mt-32"
+        id="home"
+      >
+        <h1
+          class="font-headline-xl-mobile md:font-headline-xl text-headline-xl-mobile md:text-headline-xl text-pencil-black max-w-3xl leading-tight -rotate-1"
+        >
+          Architecting
+          <span class="scribble-underline">
+            <span class="text-marker-red">scalable microservices</span>
+          </span>
+          &
+          <span class="scribble-underline">
+            <span class="text-marker-red">high-concurrency</span>
+          </span>
+
+          systems.
+        </h1>
+        <p
+          class="font-body-lg text-body-lg text-on-surface-variant mt-6 max-w-xl rotate-1"
+        >
+          Full-Stack Developer with 2+ years of experience in React, NestJS, and
+          Event-Driven Microservices. Focused on API optimization, robust
+          security, and seamless AI integration.
+        </p>
+        <div class="mt-12 relative">
+          <!-- Hand-drawn arrow pointing to CTA -->
+          <svg
+            class="absolute -top-12 -left-16 w-24 h-24 text-marker-red transform -rotate-12 hidden md:block"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+            viewbox="0 0 100 100"
+          >
+            <path d="M10,80 Q30,20 80,50"></path>
+            <path d="M70,35 L85,52 L65,65"></path>
+          </svg>
+          <a
+            class="inline-flex items-center justify-center bg-paper-warm wobbly-border px-8 py-4 font-headline-md text-headline-md text-pencil-black hard-shadow -rotate-2 group"
+            href="#contact"
+          >
+            Contact Me
+            <span
+              class="material-symbols-outlined ml-2 group-hover:translate-x-1 transition-transform"
+              >arrow_forward</span
+            >
+          </a>
+        </div>
+        <!-- Decorative Doodles -->
+        <svg
+          class="absolute top-0 right-10 w-16 h-16 text-outline opacity-50 -rotate-12"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewbox="0 0 100 100"
+        >
+          <circle cx="50" cy="50" r="40" stroke-dasharray="5 5"></circle>
+          <path d="M30 50 H70 M50 30 V70"></path>
+        </svg>
+      </section>
+
+      <!-- About Me -->
+      <section class="relative scroll-mt-32" id="about">
+        <div
+          class="bg-paper-muted wobbly-border p-8 md:p-12 hard-shadow rotate-1 max-w-4xl mx-auto relative z-10"
+        >
+          <!-- Thumbtack Decoration -->
+          <div
+            class="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-marker-red shadow-[2px_2px_0px_#2d2d2d] z-20 flex items-center justify-center"
+          >
+            <div class="w-2 h-2 rounded-full bg-white opacity-50"></div>
+          </div>
+          <!-- Tape Decoration -->
+          <div
+            class="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-surface-dim opacity-70 rotate-2"
+          ></div>
+          <div class="flex flex-col md:flex-row gap-8 items-start">
+            <div
+              class="w-32 h-32 md:w-48 md:h-48 shrink-0 relative -rotate-3 hard-shadow wobbly-border bg-paper-warm p-2"
+            >
+              <img
+                class="w-full h-full object-cover grayscale opacity-90 contrast-125 mix-blend-multiply"
+                data-alt="Developer sketch"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKD_1Wf4McI4cH8nQ7AodqHkgCWnR1tmAZnptvNKK-yRPhe83RE-fHDTlls3OTFwtZujhNWweSDRAfVtOTchyAmJ5aR88xQsEqRQLFZ776yONxcaw_pBbCn9Mjtv5eTbKdET1U_yoQhm-xfegZZ5QDGBZyAvWPNufLN_NHadrQ5s4VBJ5RCHJGUkr98GanYfef5g93v-ZwSQzLuRCNYDmqNm11owsMRgWRl2zT6lcHKiB1yWkMa6tQ"
+              />
+            </div>
+            <div>
+              <h2
+                class="font-headline-lg text-headline-lg text-pencil-black mb-4"
+              >
+                About Me
+              </h2>
+              <p
+                class="font-body-md text-body-md text-on-surface-variant space-y-4"
+              >
+                I don't just write code; I blueprint systems. My approach merges
+                the strict logic of software engineering with the fluid
+                creativity of a sketchpad. I believe that the best architectures
+                start as simple circles and arrows drawn by hand.
+                <br /><br />
+                With <strong>2+ years of full-stack experience</strong>, my core
+                focus is on
+                <strong>clean architecture and API optimization</strong>. I've
+                been building resilient digital products, optimizing APIs to
+                handle thousands of concurrent requests, and crafting intuitive
+                frontends that humans actually enjoy using.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="space-y-8 scroll-mt-32" id="skills">
+        <h2
+          class="font-headline-lg text-headline-lg text-pencil-black text-center -rotate-1"
+        >
+          <span class="scribble-underline">Skills</span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Frontend -->
+          <div
+            class="bg-paper-warm wobbly-border p-6 hard-shadow -rotate-2 hover:rotate-0 transition-transform"
+          >
+            <h3
+              class="font-headline-md text-headline-md text-pencil-black mb-4 flex items-center gap-2"
+            >
+              <span class="material-symbols-outlined text-marker-red"
+                >design_services</span
+              >
+              Frontend
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-3 py-1 bg-surface-variant wobbly-border-sm text-sm rotate-1"
+                >React</span
+              >
+              <span
+                class="px-3 py-1 bg-surface-variant wobbly-border-sm text-sm -rotate-1"
+                >Next.js</span
+              >
+              <span
+                class="px-3 py-1 bg-surface-variant wobbly-border-sm text-sm rotate-2"
+                >Tailwind</span
+              >
+              <span
+                class="px-3 py-1 bg-surface-variant wobbly-border-sm text-sm"
+                >TypeScript</span
+              >
+            </div>
+          </div>
+          <!-- Backend -->
+          <div
+            class="bg-paper-warm wobbly-border border-ballpoint-blue p-6 shadow-[4px_4px_0px_#2d5da1] hover:shadow-[6px_6px_0px_#2d5da1] rotate-1 hover:-rotate-1 transition-all"
+          >
+            <h3
+              class="font-headline-md text-headline-md text-ballpoint-blue mb-4 flex items-center gap-2"
+            >
+              <span class="material-symbols-outlined">dns</span>
+              Backend
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-3 py-1 bg-secondary-fixed wobbly-border-sm border-ballpoint-blue text-ballpoint-blue text-sm -rotate-2"
+                >Node.js</span
+              >
+              <span
+                class="px-3 py-1 bg-secondary-fixed wobbly-border-sm border-ballpoint-blue text-ballpoint-blue text-sm rotate-1"
+                >Express</span
+              >
+              <span
+                class="px-3 py-1 bg-secondary-fixed wobbly-border-sm border-ballpoint-blue text-ballpoint-blue text-sm -rotate-1"
+                >NestJS</span
+              >
+              <span
+                class="px-3 py-1 bg-secondary-fixed wobbly-border-sm border-ballpoint-blue text-ballpoint-blue text-sm"
+                >Microservices</span
+              >
+              <span
+                class="px-3 py-1 bg-secondary-fixed wobbly-border-sm border-ballpoint-blue text-ballpoint-blue text-sm rotate-2"
+                >PostgreSQL</span
+              >
+              <span
+                class="px-3 py-1 bg-secondary-fixed wobbly-border-sm border-ballpoint-blue text-ballpoint-blue text-sm -rotate-1"
+                >Redis</span
+              >
+              <span
+                class="px-3 py-1 bg-secondary-fixed wobbly-border-sm border-ballpoint-blue text-ballpoint-blue text-sm rotate-1"
+                >Socket.io</span
+              >
+            </div>
+          </div>
+          <!-- DevOps -->
+          <div
+            class="bg-paper-warm wobbly-border p-6 hard-shadow -rotate-1 hover:rotate-1 transition-transform"
+          >
+            <h3
+              class="font-headline-md text-headline-md text-pencil-black mb-4 flex items-center gap-2"
+            >
+              <span class="material-symbols-outlined text-outline"
+                >rocket_launch</span
+              >
+              DevOps
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-3 py-1 bg-surface-variant wobbly-border-sm text-sm rotate-1"
+                >Docker</span
+              >
+              <span
+                class="px-3 py-1 bg-surface-variant wobbly-border-sm text-sm -rotate-1"
+                >Nginx</span
+              >
+              <span
+                class="px-3 py-1 bg-surface-variant wobbly-border-sm text-sm -rotate-2"
+                >RabbitMQ</span
+              >
+              <span
+                class="px-3 py-1 bg-surface-variant wobbly-border-sm text-sm rotate-1"
+                >BullMQ</span
+              >
+              <span
+                class="px-3 py-1 bg-surface-variant wobbly-border-sm text-sm"
+                >AWS</span
+              >
+              <span
+                class="px-3 py-1 bg-surface-variant wobbly-border-sm text-sm rotate-2"
+                >Prometheus</span
+              >
+              <span
+                class="px-3 py-1 bg-surface-variant wobbly-border-sm text-sm -rotate-1"
+                >Grafana</span
+              >
+              <span
+                class="px-3 py-1 bg-surface-variant wobbly-border-sm text-sm rotate-1"
+                >CI/CD</span
+              >
+            </div>
+          </div>
+          <!-- AI -->
+          <div
+            class="bg-paper-warm wobbly-border p-6 hard-shadow rotate-2 hover:-rotate-2 transition-transform"
+          >
+            <h3
+              class="font-headline-md text-headline-md text-pencil-black mb-4 flex items-center gap-2"
+            >
+              <span class="material-symbols-outlined text-tertiary-container"
+                >psychology</span
+              >
+              AI / ML
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-3 py-1 bg-tertiary-fixed wobbly-border-sm text-sm -rotate-1"
+                >OpenAI API</span
+              >
+              <span
+                class="px-3 py-1 bg-tertiary-fixed wobbly-border-sm text-sm rotate-2"
+                >LangChain</span
+              >
+              <span class="px-3 py-1 bg-tertiary-fixed wobbly-border-sm text-sm"
+                >Vector DBs</span
+              >
+              <span
+                class="px-3 py-1 bg-tertiary-fixed wobbly-border-sm text-sm -rotate-1"
+                >Ollama</span
+              >
+              <span
+                class="px-3 py-1 bg-tertiary-fixed wobbly-border-sm text-sm rotate-1"
+                >pgvector</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Projects -->
+      <section class="space-y-12 scroll-mt-32" id="projects">
+        <h2
+          class="font-headline-lg text-headline-lg text-pencil-black text-center rotate-1"
+        >
+          <span class="scribble-underline">Featured Projects</span>
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+          <!-- Centralized CRM/HRM/PM/AI (Full width card from Labs) -->
+          <article
+            class="md:col-span-12 bg-paper-warm wobbly-border p-8 hard-shadow rotate-[0.5deg] hover:rotate-0 transition-transform relative group"
+          >
+            <!-- Tape effect -->
+            <div
+              class="absolute -top-3 left-10 w-20 h-6 bg-surface-dim opacity-70 rotate-[2deg] mix-blend-multiply"
+            ></div>
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="font-headline-lg text-headline-lg text-pencil-black">
+                Centralized CRM/HRM/PM/AI
+              </h3>
+              <a
+                class="text-ballpoint-blue hover:text-marker-red transition-colors group-hover:rotate-12 inline-block"
+                href="#"
+              >
+                <span class="material-symbols-outlined">north_east</span>
+              </a>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant mb-6">
+              Architected and engineered a modular microservices platform for
+              B2B/B2C SaaS operations. Implemented complex authorization logic
+              via RBAC/ABAC models for robust API security. Developed a scalable
+              microservices architecture utilizing RabbitMQ for asynchronous
+              event-driven communication and gRPC for high-performance
+              inter-service data transfer. Established a comprehensive
+              monitoring system leveraging Prometheus and Grafana.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-3 py-1 bg-surface-container wobbly-border-sm text-sm font-bold rotate-[-2deg]"
+                >Microservices</span
+              >
+              <span
+                class="px-3 py-1 bg-surface-container wobbly-border-sm text-sm font-bold rotate-[1deg]"
+                >RabbitMQ &amp; gRPC</span
+              >
+              <span
+                class="px-3 py-1 bg-surface-container wobbly-border-sm text-sm font-bold rotate-[-1deg]"
+                >RBAC/ABAC</span
+              >
+              <span
+                class="px-3 py-1 bg-surface-container wobbly-border-sm text-sm font-bold rotate-[2deg]"
+                >Prometheus &amp; Grafana</span
+              >
+            </div>
+          </article>
+
+          <!-- Project: Social Media Web App -->
+          <article
+            class="md:col-span-6 bg-paper-warm wobbly-border p-6 hard-shadow -rotate-1 group relative"
+          >
+            <div
+              class="absolute -top-4 -left-4 bg-post-it-yellow wobbly-border px-3 py-1 -rotate-12 z-10 shadow-[2px_2px_0px_#2d2d2d]"
+            >
+              <span class="font-headline-sm text-sm font-bold">10k req/s!</span>
+            </div>
+            <div
+              class="w-full h-48 mb-4 wobbly-border bg-surface-container overflow-hidden relative"
+            >
+              <div
+                class="bg-cover bg-center w-full h-full grayscale mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-500"
+                style="
+                  background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuA7DMG5wgKz1zBs0piKFeh0U-pGc237-w_gCvZsot_7r1LrnELHQ1Dwh6_8XG82zV9aksnFns2ITzkKpaYDPihnQngyfdrzJT0qcL7YapAhxSj6mLT9HJQU62NRX2SvXCdYt5ni1GAbvZ9ZQOd8DsumJkuv5OVjgll0F2IVIwstbRTurBMlPIFzZqmONBjH20BeX5RAZP2BKfqtmK2hMlIlXFuLA5m90VB9RoH8l918kXbBoRpgmi-P&quot;);
+                "
+              ></div>
+            </div>
+            <h3
+              class="font-headline-md text-headline-md text-pencil-black mb-2 flex justify-between items-center"
+            >
+              Social Media Web App
+              <a
+                class="text-ballpoint-blue hover:text-marker-red transition-colors"
+                href="#"
+                ><span class="material-symbols-outlined">north_east</span></a
+              >
+            </h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mb-4">
+              Engineered a social platform optimized for high concurrency
+              (10,000+ req/s), verified through performance testing using k6
+              &amp; Artillery. Orchestrated deployment on AWS (S3, RDS) and
+              utilized Redis caching strategies for ultra-low latency.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto">
+              <span
+                class="px-2 py-1 bg-surface-container wobbly-border-sm text-xs font-bold -rotate-2"
+                >Socket.io</span
+              >
+              <span
+                class="px-2 py-1 bg-surface-container wobbly-border-sm text-xs font-bold rotate-1"
+                >AWS (S3, RDS)</span
+              >
+              <span
+                class="px-2 py-1 bg-surface-container wobbly-border-sm text-xs font-bold"
+                >Redis</span
+              >
+              <span
+                class="px-2 py-1 bg-surface-container wobbly-border-sm text-xs font-bold rotate-2"
+                >React</span
+              >
+            </div>
+          </article>
+
+          <!-- Project: E-commerce & Retail System -->
+          <article
+            class="md:col-span-6 bg-paper-warm wobbly-border p-6 hard-shadow rotate-1 group relative"
+          >
+            <div
+              class="absolute -top-3 right-6 w-16 h-6 bg-surface-dim opacity-70 -rotate-6 z-10 mix-blend-multiply"
+            ></div>
+            <div
+              class="w-full h-48 mb-4 wobbly-border bg-surface-container overflow-hidden relative"
+            >
+              <div
+                class="bg-cover bg-center w-full h-full grayscale mix-blend-multiply opacity-80 group-hover:scale-105 transition-transform duration-500"
+                style="
+                  background-image: url(&quot;https://lh3.googleusercontent.com/aida-public/AB6AXuD0AeFjiCQNNdVcwyzqfvxZnxsmTAJDHlySx8ZQ-lqnOu3H57YKEL_APszF9hjmjziXzhQ5f7MmFJft8PNKwp3HNxb4VwwHMzgkGvye1HkXqbRTBemi2k7tnqOTUcSUhzB1yuw2VA6safzejt3HMMDsnzrMnJmB3BeGZvztGbQAYBU74zQejfuIupTheKbBOwDwvTwFCbshl2ns0yxhWKz87emODks5z4LJj37WVuRGNDoWChl3oiSH&quot;);
+                "
+              ></div>
+            </div>
+            <h3
+              class="font-headline-md text-headline-md text-pencil-black mb-2 flex justify-between items-center"
+            >
+              E-commerce &amp; Retail System
+              <a
+                class="text-ballpoint-blue hover:text-marker-red transition-colors"
+                href="#"
+                ><span class="material-symbols-outlined">north_east</span></a
+              >
+            </h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mb-4">
+              Designed a platform with spatial querying via PostGIS to optimize
+              localized delivery routing. Integrated a local Ollama LLM setup
+              for intelligent product recommendations &amp; semantic search,
+              alongside automated SePay payments.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto">
+              <span
+                class="px-2 py-1 bg-surface-container wobbly-border-sm text-xs font-bold rotate-1"
+                >NestJS</span
+              >
+              <span
+                class="px-2 py-1 bg-surface-container wobbly-border-sm text-xs font-bold -rotate-1"
+                >PostGIS</span
+              >
+              <span
+                class="px-2 py-1 bg-surface-container wobbly-border-sm text-xs font-bold"
+                >Ollama LLM</span
+              >
+              <span
+                class="px-2 py-1 bg-surface-container wobbly-border-sm text-xs font-bold -rotate-2"
+                >SePay</span
+              >
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Experience Timeline -->
+      <section class="max-w-2xl mx-auto scroll-mt-32" id="experience">
+        <h2
+          class="font-headline-lg text-headline-lg text-pencil-black mb-8 text-center"
+        >
+          <span class="scribble-underline">The Journey</span>
+        </h2>
+        <div class="relative pl-8 md:pl-0">
+          <!-- Timeline Line -->
+          <div
+            class="absolute left-0 md:left-1/2 top-0 bottom-0 w-1 md:-ml-0.5 dotted-timeline"
+          ></div>
+          <div class="space-y-12">
+            <!-- Item 1 -->
+            <div
+              class="relative flex flex-col md:flex-row items-center md:justify-between w-full"
+            >
+              <div
+                class="absolute left-[-37px] md:left-1/2 md:-ml-3 w-6 h-6 bg-marker-red wobbly-border rounded-full shadow-[2px_2px_0px_#2d2d2d] z-10 flex items-center justify-center"
+              >
+                <div class="w-1.5 h-1.5 bg-paper-warm rounded-full"></div>
+              </div>
+              <div
+                class="md:w-5/12 ml-4 md:ml-0 md:pr-8 text-left md:text-right rotate-1"
+              >
+                <h4 class="font-headline-md text-headline-md text-pencil-black">
+                  Backend Developer @ Sea Dragon Technology
+                </h4>
+                <span
+                  class="font-body-sm text-body-sm text-marker-red font-bold"
+                  >Current</span
+                >
+              </div>
+              <div
+                class="md:w-5/12 ml-4 md:ml-0 mt-2 md:mt-0 md:pl-8 bg-paper-warm wobbly-border p-4 hard-shadow -rotate-1"
+              >
+                <p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Architecting scalable backend microservices, optimizing
+                  complex database queries, and integrating AI-driven features
+                  for high-traffic enterprise applications.
+                </p>
+              </div>
+            </div>
+            <!-- Item 2 -->
+            <div
+              class="relative flex flex-col md:flex-row items-center md:justify-between w-full md:flex-row-reverse"
+            >
+              <div
+                class="absolute left-[-37px] md:left-1/2 md:-ml-3 w-6 h-6 bg-ballpoint-blue wobbly-border rounded-full shadow-[2px_2px_0px_#2d2d2d] z-10 flex items-center justify-center"
+              >
+                <div class="w-1.5 h-1.5 bg-paper-warm rounded-full"></div>
+              </div>
+              <div class="md:w-5/12 ml-4 md:ml-0 md:pl-8 text-left -rotate-1">
+                <h4 class="font-headline-md text-headline-md text-pencil-black">
+                  Full-Stack Developer
+                </h4>
+                <span class="font-body-sm text-body-sm text-outline font-bold"
+                  >2024 - 2026</span
+                >
+              </div>
+              <div
+                class="md:w-5/12 ml-4 md:ml-0 mt-2 md:mt-0 md:pr-8 bg-paper-warm wobbly-border p-4 hard-shadow rotate-1"
+              >
+                <p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Built and maintained high-traffic web applications. Handled
+                  full lifecycle from frontend components to backend APIs and
+                  high-concurrency optimization.
+                </p>
+              </div>
+            </div>
+            <!-- Item 3 -->
+            <div
+              class="relative flex flex-col md:flex-row items-center md:justify-between w-full"
+            >
+              <div
+                class="absolute left-[-37px] md:left-1/2 md:-ml-3 w-6 h-6 bg-post-it-yellow wobbly-border rounded-full shadow-[2px_2px_0px_#2d2d2d] z-10 flex items-center justify-center"
+              >
+                <div class="w-1.5 h-1.5 bg-pencil-black rounded-full"></div>
+              </div>
+              <div
+                class="md:w-5/12 ml-4 md:ml-0 md:pr-8 text-left md:text-right rotate-2"
+              >
+                <h4 class="font-headline-md text-headline-md text-pencil-black">
+                  Information Technology College (ITC)
+                </h4>
+                <span class="font-body-sm text-body-sm text-outline font-bold"
+                  >Education</span
+                >
+              </div>
+              <div
+                class="md:w-5/12 ml-4 md:ml-0 mt-2 md:mt-0 md:pl-8 bg-paper-warm wobbly-border p-4 hard-shadow -rotate-2"
+              >
+                <p class="font-body-sm text-body-sm text-on-surface-variant">
+                  Graduated with a solid foundation in software engineering,
+                  algorithms, and systems architecture from Ho Chi Minh City.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Me -->
+      <section id="contact" class="scroll-mt-32 px-6 max-w-4xl mx-auto">
+        <div class="bg-paper-warm wobbly-border p-8 hard-shadow">
+          <h2
+            class="font-headline-lg text-2xl md:text-3xl font-bold mb-4 text-pencil-black"
+          >
+            Let's Connect
+          </h2>
+          <p class="mb-6 text-on-surface-variant">
+            Got a project in mind or want to talk microservices & AI? Drop me a
+            message!
+          </p>
+
+          <form
+            action="https://formspree.io/f/xvkpelpy"
+            method="POST"
+            id="contact-form"
+            class="flex flex-col gap-4"
+          >
+            <div>
+              <label class="block font-medium mb-1">Your Name</label>
+              <input
+                type="text"
+                name="name"
+                required
+                class="w-full p-3 bg-white wobbly-border border-pencil-black focus:outline-none"
+                placeholder="Liemdev"
+              />
+            </div>
+            <div>
+              <label class="block font-medium mb-1">Your Email</label>
+              <input
+                type="email"
+                name="email"
+                required
+                class="w-full p-3 bg-white wobbly-border border-pencil-black focus:outline-none"
+                placeholder="liemdev@gmail.com"
+              />
+            </div>
+            <div>
+              <label class="block font-medium mb-1">Message</label>
+              <textarea
+                name="message"
+                rows="4"
+                required
+                class="w-full p-3 bg-white wobbly-border border-pencil-black focus:outline-none"
+                placeholder="Hi Liemdev, I really like your portfolio! I would love to discuss a potential collaboration with you."
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="bg-paper-warm wobbly-border px-6 py-3 font-bold hover:bg-ballpoint-blue hover:text-white transition-colors hard-shadow self-start"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="w-full border-t-2 border-pencil-black mt-20 border-dashed border-outline bg-paper-warm dark:bg-primary-container"
+      id="contact"
+    >
+      <div
+        class="flex flex-col md:flex-row justify-between items-center max-w-[1100px] mx-auto px-margin-mobile md:px-margin-desktop py-gutter"
+      >
+        <div
+          class="font-headline-md text-headline-md italic text-pencil-black dark:text-on-primary-fixed mb-4 md:mb-0 -rotate-1"
+        >
+          © 2026 Sketched by Liem • Built with ink &amp; code
+        </div>
+        <div class="flex gap-6 font-body-sm text-body-sm">
+          <a
+            class="text-on-surface-variant hover:text-marker-red hover:underline decoration-double transition-colors duration-200"
+            href="https://github.com/Bui-Thanh-Liem"
+            target="_blank"
+            >GitHub</a
+          >
+          <a
+            class="text-on-surface-variant hover:text-marker-red hover:underline decoration-double transition-colors duration-200"
+            href="./buithanhliem.pdf"
+            target="_blank"
+            >Resume</a
+          >
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
